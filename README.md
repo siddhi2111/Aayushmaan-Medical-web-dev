@@ -57,16 +57,10 @@ APP_PASSWORD = # contact us to fill this field
 - Provide Feedback for completed consultations
 - Receive important email notifications
 ### For Doctors
-- Update working hours, location, clinic etc.
+- Update working hours, location, clinic, etc.
 - View incoming consultation requests
 - Reject consultations
 - Book a physical appointment with the patient
 - Send an online prescription
-- Receive notifications when a patient provides a feedback
-- Reply to the beforementioned feedback
-
-## Credits
-### For any querries, bugs or doubts, please contact any of the three contributors:
-1) [`Sharanya Chakraborty`](https://github.com/destryptor)
-2) [`T. Shiva Chaitanya`](https://github.com/shivachaits)
-3) [`Jatin Mahawar`](https://github.com/jatinsm2023)
+- Receive notifications when a patient provides feedback
+- Reply to the before mentioned feedback
