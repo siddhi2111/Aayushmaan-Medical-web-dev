@@ -13,7 +13,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-const port = 6969;
+const port = process.env.PORT || 6969;
 
 dbInit();
 

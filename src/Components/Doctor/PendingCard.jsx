@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
+import API_BASE from '../../api';
 export default function PendingCard({ index, data, status }) {
 	const [showModal, setShowModal] = useState(false);
 	const [inputValue, setInputValue] = useState('');
@@ -74,7 +75,7 @@ export default function PendingCard({ index, data, status }) {
 		let flag = true;
 		const patientEmail = data.email;
 		const doctorEmail = localStorage.getItem('userEmail');
-		const doc_data_to_update_response = await authFetch('http://localhost:6969/doctor/getByEmail', {
+		const doc_data_to_update_response = await authFetch(API_BASE + '/doctor/getByEmail', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -117,7 +118,7 @@ export default function PendingCard({ index, data, status }) {
 		const req_id = data.id;
 		console.log(req_id);
 		try {
-			const response = await authFetch('http://localhost:6969/patient/getByEmail', {
+			const response = await authFetch(API_BASE + '/patient/getByEmail', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -144,7 +145,7 @@ export default function PendingCard({ index, data, status }) {
 			patient_to_upd.doctor.splice(doct_ind, 1);
 
 			try {
-				const updateResponse = await authFetch('http://localhost:6969/patient/updatePatient', {
+				const updateResponse = await authFetch(API_BASE + '/patient/updatePatient', {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
@@ -154,7 +155,7 @@ export default function PendingCard({ index, data, status }) {
 
 				if (updateResponse.ok) {
 					try {
-						const doc_data_to_update_response = await authFetch('http://localhost:6969/doctor/getByEmail', {
+						const doc_data_to_update_response = await authFetch(API_BASE + '/doctor/getByEmail', {
 							method: 'POST',
 							headers: {
 								'Content-Type': 'application/json',
@@ -167,7 +168,7 @@ export default function PendingCard({ index, data, status }) {
 							throw new Error('Doctor not found for the patient');
 						}
 						doc_data_to_update.patients.splice(pait_ind, 1);
-						const updateDoctorResponse = await authFetch('http://localhost:6969/doctor/updateDoctor', {
+						const updateDoctorResponse = await authFetch(API_BASE + '/doctor/updateDoctor', {
 							method: 'POST',
 							headers: {
 								'Content-Type': 'application/json',
@@ -185,7 +186,7 @@ export default function PendingCard({ index, data, status }) {
 						}
 
 						try {
-							const emailResponse = await authFetch('http://localhost:6969/email/sendMail', {
+							const emailResponse = await authFetch(API_BASE + '/email/sendMail', {
 								method: 'POST',
 								headers: {
 									'Content-Type': 'application/json',
@@ -250,7 +251,7 @@ export default function PendingCard({ index, data, status }) {
 		// if (currDate < date) return toast.error('Appointment cannot be cancelled before the booked date!');
 		// if (currDate === date && currTime < time) return toast.error('Appointment cannot be cancelled before the booked date!');
 		try {
-			const response = await authFetch('http://localhost:6969/patient/getByEmail', {
+			const response = await authFetch(API_BASE + '/patient/getByEmail', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -276,7 +277,7 @@ export default function PendingCard({ index, data, status }) {
 			patient_to_upd.doctor[doct_ind].completionDate = new Date().toISOString().split('T')[0];
 
 			try {
-				const updateResponse = await authFetch('http://localhost:6969/patient/updatePatient', {
+				const updateResponse = await authFetch(API_BASE + '/patient/updatePatient', {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
@@ -296,7 +297,7 @@ export default function PendingCard({ index, data, status }) {
 					toast.error('Internal server error');
 				}
 				try {
-					const doc_data_to_update_response = await authFetch('http://localhost:6969/doctor/getByEmail', {
+					const doc_data_to_update_response = await authFetch(API_BASE + '/doctor/getByEmail', {
 						method: 'POST',
 						headers: {
 							'Content-Type': 'application/json',
@@ -310,7 +311,7 @@ export default function PendingCard({ index, data, status }) {
 					}
 					doc_data_to_update.patients[pait_ind].status = 'completed';
 					doc_data_to_update.patients[pait_ind].completionDate = new Date().toISOString().split('T')[0];
-					const updateDoctorResponse = await authFetch('http://localhost:6969/doctor/updateDoctor', {
+					const updateDoctorResponse = await authFetch(API_BASE + '/doctor/updateDoctor', {
 						method: 'POST',
 						headers: {
 							'Content-Type': 'application/json',
@@ -326,7 +327,7 @@ export default function PendingCard({ index, data, status }) {
 						console.error('Error updating doctor:', errorMessage);
 						toast.error('Internal server error');
 					}
-					const response = await authFetch('http://localhost:6969/appointment/deleteAppointment', {
+					const response = await authFetch(API_BASE + '/appointment/deleteAppointment', {
 						method: 'POST',
 						headers: {
 							'Content-Type': 'application/json',
@@ -338,7 +339,7 @@ export default function PendingCard({ index, data, status }) {
 					}
 
 					try {
-						const emailResponse = await authFetch('http://localhost:6969/email/sendMail', {
+						const emailResponse = await authFetch(API_BASE + '/email/sendMail', {
 							method: 'POST',
 							headers: {
 								'Content-Type': 'application/json',
@@ -392,7 +393,7 @@ export default function PendingCard({ index, data, status }) {
 		const doctorEmail = localStorage.getItem('userEmail');
 		const req_id = data.id;
 		try {
-			const response = await authFetch('http://localhost:6969/patient/getByEmail', {
+			const response = await authFetch(API_BASE + '/patient/getByEmail', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -427,7 +428,7 @@ export default function PendingCard({ index, data, status }) {
 			patient_to_upd.doctor.splice(doct_ind, 1);
 
 			try {
-				const updateResponse = await authFetch('http://localhost:6969/patient/updatePatient', {
+				const updateResponse = await authFetch(API_BASE + '/patient/updatePatient', {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
@@ -444,7 +445,7 @@ export default function PendingCard({ index, data, status }) {
 					toast.error('Internal server error');
 				}
 				try {
-					const doc_data_to_update_response = await authFetch('http://localhost:6969/doctor/getByEmail', {
+					const doc_data_to_update_response = await authFetch(API_BASE + '/doctor/getByEmail', {
 						method: 'POST',
 						headers: {
 							'Content-Type': 'application/json',
@@ -457,7 +458,7 @@ export default function PendingCard({ index, data, status }) {
 						throw new Error('Doctor not found for the patient');
 					}
 					doc_data_to_update.patients.splice(pait_ind, 1);
-					const updateDoctorResponse = await authFetch('http://localhost:6969/doctor/updateDoctor', {
+					const updateDoctorResponse = await authFetch(API_BASE + '/doctor/updateDoctor', {
 						method: 'POST',
 						headers: {
 							'Content-Type': 'application/json',
@@ -507,7 +508,7 @@ export default function PendingCard({ index, data, status }) {
 					doctorEmail: doctorEmail,
 					content: cont, //need to change by the input
 				};
-				const response = await authFetch('http://localhost:6969/prescription/createPrescription', {
+				const response = await authFetch(API_BASE + '/prescription/createPrescription', {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
@@ -523,7 +524,7 @@ export default function PendingCard({ index, data, status }) {
 				console.log('Prescription created successfully:', prescrip_data);
 				setShowModal(true);
 
-				const patient_response = await authFetch('http://localhost:6969/patient/getByEmail', {
+				const patient_response = await authFetch(API_BASE + '/patient/getByEmail', {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
@@ -548,7 +549,7 @@ export default function PendingCard({ index, data, status }) {
 				patient_to_upd.doctor[doct_ind].id = prescrip_data._id;
 
 				try {
-					const updateResponse = await authFetch('http://localhost:6969/patient/updatePatient', {
+					const updateResponse = await authFetch(API_BASE + '/patient/updatePatient', {
 						method: 'POST',
 						headers: {
 							'Content-Type': 'application/json',
@@ -565,7 +566,7 @@ export default function PendingCard({ index, data, status }) {
 						toast.error('Internal server error');
 					}
 					try {
-						const doc_data_to_update_response = await authFetch('http://localhost:6969/doctor/getByEmail', {
+						const doc_data_to_update_response = await authFetch(API_BASE + '/doctor/getByEmail', {
 							method: 'POST',
 							headers: {
 								'Content-Type': 'application/json',
@@ -580,7 +581,7 @@ export default function PendingCard({ index, data, status }) {
 						doc_data_to_update.patients[pait_ind].status = 'completed';
 						doc_data_to_update.patients[pait_ind].id = prescrip_data._id;
 						doc_data_to_update.patients[pait_ind].completionDate = new Date().toISOString().split('T')[0];
-						const updateDoctorResponse = await authFetch('http://localhost:6969/doctor/updateDoctor', {
+						const updateDoctorResponse = await authFetch(API_BASE + '/doctor/updateDoctor', {
 							method: 'POST',
 							headers: {
 								'Content-Type': 'application/json',
@@ -598,7 +599,7 @@ export default function PendingCard({ index, data, status }) {
 						}
 
 						try {
-							const emailResponse = await authFetch('http://localhost:6969/email/sendMail', {
+							const emailResponse = await authFetch(API_BASE + '/email/sendMail', {
 								method: 'POST',
 								headers: {
 									'Content-Type': 'application/json',
@@ -665,7 +666,7 @@ export default function PendingCard({ index, data, status }) {
 		const day = days[dateObject.getDay()];
 		try {
 			try {
-				const doc_data_to_update_response = await authFetch('http://localhost:6969/doctor/getByEmail', {
+				const doc_data_to_update_response = await authFetch(API_BASE + '/doctor/getByEmail', {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
@@ -728,7 +729,7 @@ export default function PendingCard({ index, data, status }) {
 					date: date,
 					time: time,
 				};
-				const response = await authFetch('http://localhost:6969/appointment/createAppointment', {
+				const response = await authFetch(API_BASE + '/appointment/createAppointment', {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
@@ -749,7 +750,7 @@ export default function PendingCard({ index, data, status }) {
 				}
 				doc_data_to_update.patients[pait_ind].status = 'appointment';
 				doc_data_to_update.patients[pait_ind].id = apt_data._id;
-				const responseForDoctorUpdate = await authFetch('http://localhost:6969/doctor/updateDoctor', {
+				const responseForDoctorUpdate = await authFetch(API_BASE + '/doctor/updateDoctor', {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
@@ -767,7 +768,7 @@ export default function PendingCard({ index, data, status }) {
 				}
 
 				try {
-					const response = await authFetch('http://localhost:6969/patient/getByEmail', {
+					const response = await authFetch(API_BASE + '/patient/getByEmail', {
 						method: 'POST',
 						headers: {
 							'Content-Type': 'application/json',
@@ -791,7 +792,7 @@ export default function PendingCard({ index, data, status }) {
 					patient_to_upd.doctor[doct_ind].status = 'appointment';
 					patient_to_upd.doctor[doct_ind].id = apt_data._id;
 					try {
-						const updateResponse = await authFetch('http://localhost:6969/patient/updatePatient', {
+						const updateResponse = await authFetch(API_BASE + '/patient/updatePatient', {
 							method: 'POST',
 							headers: {
 								'Content-Type': 'application/json',
@@ -809,7 +810,7 @@ export default function PendingCard({ index, data, status }) {
 						}
 
 						try {
-							const emailResponse = await authFetch('http://localhost:6969/email/sendMail', {
+							const emailResponse = await authFetch(API_BASE + '/email/sendMail', {
 								method: 'POST',
 								headers: {
 									'Content-Type': 'application/json',
@@ -872,7 +873,7 @@ export default function PendingCard({ index, data, status }) {
 		const feedback = document.getElementById('reply-text').value;
 		if (feedback === '') return toast.error('Reply cannot be empty');
 		try {
-			const response = await authFetch('http://localhost:6969/patient/getByEmail', {
+			const response = await authFetch(API_BASE + '/patient/getByEmail', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -897,7 +898,7 @@ export default function PendingCard({ index, data, status }) {
 			let doctorData;
 
 			try {
-				const doctorResponse = await authFetch('http://localhost:6969/doctor/getByEmail', {
+				const doctorResponse = await authFetch(API_BASE + '/doctor/getByEmail', {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
@@ -920,7 +921,7 @@ export default function PendingCard({ index, data, status }) {
 			}
 
 			try {
-				const updateResponse = await authFetch('http://localhost:6969/patient/updatePatient', {
+				const updateResponse = await authFetch(API_BASE + '/patient/updatePatient', {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
@@ -933,7 +934,7 @@ export default function PendingCard({ index, data, status }) {
 					console.log('Patient updated successfully:', updatedPatient);
 					toast.success('Reply sent successfully');
 					try {
-						const emailResponse = await authFetch('http://localhost:6969/email/sendMail', {
+						const emailResponse = await authFetch(API_BASE + '/email/sendMail', {
 							method: 'POST',
 							headers: {
 								'Content-Type': 'application/json',

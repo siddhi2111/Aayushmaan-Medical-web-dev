@@ -2,6 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import TableCard from './CardforAppointments';
 import toast, { Toaster } from 'react-hot-toast';
+import API_BASE from '../../../api';
 
 function BookedAppointments() {
 	const [Data, setData] = useState([]);
@@ -29,7 +30,7 @@ function BookedAppointments() {
 		}
 		const fetchAppointments = async () => {
 			try {
-				const appointments = await fetch('http://localhost:6969/appointment/getAppointmentsByPatient', {
+				const appointments = await fetch(API_BASE + '/appointment/getAppointmentsByPatient', {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
@@ -46,7 +47,7 @@ function BookedAppointments() {
 				const appData = await appointments.json();
 				appData.map(async (app, index) => {
 					try {
-						const doctorData = await fetch('http://localhost:6969/doctor/getByEmail', {
+						const doctorData = await fetch(API_BASE + '/doctor/getByEmail', {
 							method: 'POST',
 							headers: {
 								'Content-Type': 'application/json',

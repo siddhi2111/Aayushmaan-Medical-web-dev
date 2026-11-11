@@ -2,6 +2,7 @@ import React from 'react';
 import TableCard from './CardforPending';
 import toast, { Toaster } from 'react-hot-toast';
 import { useState, useEffect } from 'react';
+import API_BASE from '../../../api';
 
 function PendingData() {
 	const [Data, setData] = useState([]);
@@ -29,7 +30,7 @@ function PendingData() {
 		}
 		const fetchPatient = async () => {
 			try {
-				const response = await fetch('http://localhost:6969/patient/getByEmail', {
+				const response = await fetch(API_BASE + '/patient/getByEmail', {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
@@ -50,7 +51,7 @@ function PendingData() {
 						return null;
 					}
 					try {
-						const response = await fetch('http://localhost:6969/doctor/getByEmail', {
+						const response = await fetch(API_BASE + '/doctor/getByEmail', {
 							method: 'POST',
 							headers: {
 								'Content-Type': 'application/json',

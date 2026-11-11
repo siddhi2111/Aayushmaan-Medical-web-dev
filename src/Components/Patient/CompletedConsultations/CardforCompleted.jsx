@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
+import API_BASE from '../../../api';
 
 export default function TableCard(data) {
 	const [showModal, setShowModal] = useState(false);
@@ -42,7 +43,7 @@ export default function TableCard(data) {
 		}
 
 		try {
-			const response = await fetch('http://localhost:6969/patient/getByEmail', {
+			const response = await fetch(API_BASE + '/patient/getByEmail', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -75,7 +76,7 @@ export default function TableCard(data) {
 								patient.doctor.splice(doctor_to_remove, 1);
 
 								try {
-									const updatePatientResponse = await fetch('http://localhost:6969/patient/updatePatient', {
+									const updatePatientResponse = await fetch(API_BASE + '/patient/updatePatient', {
 										method: 'POST',
 										headers: {
 											'Content-Type': 'application/json',
@@ -93,7 +94,7 @@ export default function TableCard(data) {
 									}
 
 									try {
-										const doctorResponse = await fetch('http://localhost:6969/doctor/getByEmail', {
+										const doctorResponse = await fetch(API_BASE + '/doctor/getByEmail', {
 											method: 'POST',
 											headers: {
 												'Content-Type': 'application/json',
@@ -113,7 +114,7 @@ export default function TableCard(data) {
 										doctor.patients.splice(patient_to_remove, 1);
 
 										try {
-											const updateDoctorResponse = await fetch('http://localhost:6969/doctor/updateDoctor', {
+											const updateDoctorResponse = await fetch(API_BASE + '/doctor/updateDoctor', {
 												method: 'POST',
 												headers: {
 													'Content-Type': 'application/json',
@@ -153,7 +154,7 @@ export default function TableCard(data) {
 			}
 
 			try {
-				const doctorResponse = await fetch('http://localhost:6969/doctor/getByEmail', {
+				const doctorResponse = await fetch(API_BASE + '/doctor/getByEmail', {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
@@ -173,7 +174,7 @@ export default function TableCard(data) {
 				});
 
 				try {
-					const updateDoctorResponse = await fetch('http://localhost:6969/doctor/updateDoctor', {
+					const updateDoctorResponse = await fetch(API_BASE + '/doctor/updateDoctor', {
 						method: 'POST',
 						headers: {
 							'Content-Type': 'application/json',
@@ -189,7 +190,7 @@ export default function TableCard(data) {
 							console.log('Feedback submitted: ', updateDoctor);
 							toast.success('Feedback submitted successfully');
 							try {
-								const response = await fetch('http://localhost:6969/email/sendMail', {
+								const response = await fetch(API_BASE + '/email/sendMail', {
 									method: 'POST',
 									headers: {
 										'Content-Type': 'application/json',

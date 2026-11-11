@@ -4,6 +4,7 @@ import PatientProfile from '../Components/Patient/PatientProfile';
 import DoctorData from '../Components/Patient/DoctorData';
 import toast, { Toaster } from 'react-hot-toast';
 import { Routes, Route, Link, Outlet } from 'react-router-dom';
+import API_BASE from '../api';
 // import ConsultData from '../Components/Patient/ConsultData';
 import Consultations from '../Components/Patient/Consultations';
 
@@ -72,7 +73,7 @@ const PatientDashBoard = () => {
 			}, 1500);
 		} else {
 			const fetchData = async () => {
-				const response = await authFetch('http://localhost:6969/patient/getByEmail', {
+				const response = await authFetch(API_BASE + '/patient/getByEmail', {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',

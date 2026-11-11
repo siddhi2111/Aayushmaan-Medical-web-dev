@@ -2,6 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
+import API_BASE from '../api';
 
 function UpdateProfile() {
 	// Component to update profile of doctor or patient, performs checks as to whether every field is filled or not, and some specific to doctors, as specified below
@@ -54,7 +55,7 @@ function UpdateProfile() {
 		}
 		async function fetchData() {
 			if (isDoctor) {
-				const response = await authFetch('http://localhost:6969/doctor/getByEmail', {
+				const response = await authFetch(API_BASE + '/doctor/getByEmail', {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
@@ -66,7 +67,7 @@ function UpdateProfile() {
 				const data = await response.json();
 				return setDoctor(data);
 			} else {
-				const response = await authFetch('http://localhost:6969/patient/getByEmail', {
+				const response = await authFetch(API_BASE + '/patient/getByEmail', {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
@@ -177,7 +178,7 @@ function UpdateProfile() {
 					workingHours,
 				};
 
-				const response = await authFetch('http://localhost:6969/doctor/updateDoctor', {
+				const response = await authFetch(API_BASE + '/doctor/updateDoctor', {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
@@ -211,7 +212,7 @@ function UpdateProfile() {
 					location,
 				};
 
-				const response = await authFetch('http://localhost:6969/patient/updatePatient', {
+				const response = await authFetch(API_BASE + '/patient/updatePatient', {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',

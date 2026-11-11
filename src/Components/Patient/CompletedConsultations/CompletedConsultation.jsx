@@ -2,6 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import TableCard from './CardforCompleted';
 import toast, { Toaster } from 'react-hot-toast';
+import API_BASE from '../../../api';
 
 function CompletedConsultations() {
 	const [Data, setData] = useState([]);
@@ -29,7 +30,7 @@ function CompletedConsultations() {
 		}
 		const fetchCompleted = async () => {
 			try {
-				const patientResponse = await fetch('http://localhost:6969/patient/getByEmail', {
+				const patientResponse = await fetch(API_BASE + '/patient/getByEmail', {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
@@ -45,7 +46,7 @@ function CompletedConsultations() {
 				patient.doctor.map(async (doc) => {
 					if (doc.status === 'completed') {
 						try {
-							const doctorResponse = await fetch('http://localhost:6969/doctor/getByEmail', {
+							const doctorResponse = await fetch(API_BASE + '/doctor/getByEmail', {
 								method: 'POST',
 								headers: {
 									'Content-Type': 'application/json',

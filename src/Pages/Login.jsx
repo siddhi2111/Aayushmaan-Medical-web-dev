@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
+import API_BASE from '../api';
 
 const Login = ({ isDoctor }) => {
 	const [isLogin, setLogin] = useState(true);
@@ -18,7 +19,7 @@ const Login = ({ isDoctor }) => {
 		};
 		if (isDoctor) {
 			try {
-				const response = await fetch('http://localhost:6969/doctor/loginDoctor', {
+				const response = await fetch(API_BASE + '/doctor/loginDoctor', {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
@@ -49,7 +50,7 @@ const Login = ({ isDoctor }) => {
 			}
 		} else {
 			try {
-				const response = await fetch('http://localhost:6969/patient/loginPatient', {
+				const response = await fetch(API_BASE + '/patient/loginPatient', {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
@@ -112,7 +113,7 @@ const Login = ({ isDoctor }) => {
 
 		try {
 			if (isDoctor) {
-				const response = await fetch('http://localhost:6969/doctor/createDoctor', {
+				const response = await fetch(API_BASE + '/doctor/createDoctor', {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
@@ -135,7 +136,7 @@ const Login = ({ isDoctor }) => {
 					setTimeout(() => navigator(`/update-profile?isDoctor=${isDoctor}`), 2000);
 				}
 			} else {
-				const response = await fetch('http://localhost:6969/patient/createPatient', {
+				const response = await fetch(API_BASE + '/patient/createPatient', {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',

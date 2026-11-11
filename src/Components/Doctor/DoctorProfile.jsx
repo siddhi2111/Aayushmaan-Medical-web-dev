@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import API_BASE from '../../api';
 
 const DoctorProfile = () => {
 	const navigator = useNavigate();
@@ -48,7 +49,7 @@ const DoctorProfile = () => {
 
 		const fetchDoctor = async () => {
 			try {
-				const response = await authFetch('http://localhost:6969/doctor/getByEmail', {
+				const response = await authFetch(API_BASE + '/doctor/getByEmail', {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',

@@ -2,6 +2,7 @@ import React from 'react';
 import DoctorCard from './DoctorCard';
 import { useState, useEffect } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
+import API_BASE from '../../api';
 
 function DoctorData({ location }) {
 	const [Data, setData] = useState([]);
@@ -25,7 +26,7 @@ function DoctorData({ location }) {
 		}
 		const fetchData = async () => {
 			try {
-				const doctorResponse = await fetch('http://localhost:6969/doctor/getByLocation', {
+				const doctorResponse = await fetch(API_BASE + '/doctor/getByLocation', {
 					// This API endpoint sends an array of doctors based on the location
 					method: 'POST',
 					headers: {

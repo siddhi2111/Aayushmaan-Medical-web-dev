@@ -2,6 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import PendingCard from './PendingCard';
+import API_BASE from '../../api';
 function PendingData({ status }) {
 	const [Data, setData] = useState([]);
 	const [isData, setIsData] = useState(false);
@@ -29,7 +30,7 @@ function PendingData({ status }) {
 
 		const fetchData = async () => {
 			try {
-				const doctorResponse = await fetch('http://localhost:6969/doctor/getByEmail', {
+				const doctorResponse = await fetch(API_BASE + '/doctor/getByEmail', {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
@@ -48,7 +49,7 @@ function PendingData({ status }) {
 				if (status === 'consultation') {
 					patients.map(async (patient) => {
 						if (patient.status === 'consultation') {
-							const patientResponse = await fetch('http://localhost:6969/patient/getByEmail', {
+							const patientResponse = await fetch(API_BASE + '/patient/getByEmail', {
 								method: 'POST',
 								headers: {
 									'Content-Type': 'application/json',
@@ -75,7 +76,7 @@ function PendingData({ status }) {
 				} else if (status === 'completed') {
 					patients.map(async (patient) => {
 						if (patient.status === 'completed') {
-							const patientResponse = await fetch('http://localhost:6969/patient/getByEmail', {
+							const patientResponse = await fetch(API_BASE + '/patient/getByEmail', {
 								method: 'POST',
 								headers: {
 									'Content-Type': 'application/json',
@@ -106,7 +107,7 @@ function PendingData({ status }) {
 					const doctorObject = {
 						email: doctorEmail,
 					};
-					const appointmentsResponse = await fetch('http://localhost:6969/appointment/getAppointmentsByDoctor', {
+					const appointmentsResponse = await fetch(API_BASE + '/appointment/getAppointmentsByDoctor', {
 						method: 'POST',
 						headers: {
 							'Content-Type': 'application/json',
@@ -119,7 +120,7 @@ function PendingData({ status }) {
 					}
 					const appointments = await appointmentsResponse.json();
 					appointments.map(async (appointment) => {
-						const patientResponse = await fetch('http://localhost:6969/patient/getByEmail', {
+						const patientResponse = await fetch(API_BASE + '/patient/getByEmail', {
 							method: 'POST',
 							headers: {
 								'Content-Type': 'application/json',
